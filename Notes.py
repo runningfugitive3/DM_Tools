@@ -1,5 +1,5 @@
 '''
-Testing git push
+Testing git push.
 Aaron wants "Something to track initiative order and creature hit points"
 "Number of ROunds"
 "Spell tracking... buffing nerfing stuff"
