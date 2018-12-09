@@ -10,7 +10,7 @@ def character_list(character, subsheet=None):
     if str(type(character))[1:-1] == "class 'Character.Character'":
         if not subsheet:
             ch_list = ['CHARACTER SHEET', '\n']
-            ch_list += key_value_nbsp(character)
+            ch_list += key_value_search(character)
             return ch_list
 
 
@@ -20,21 +20,23 @@ def print_sheet(character, subsheet=None):
     for index in range(len(ch_list)):
         if type(ch_list[index]) is not str:
             ch_list[index] = str(ch_list[index])
-    print(''.join(ch_list))
+    print('\n'.join(ch_list))
 
 
-def key_value_nbsp(obj, l=None):
+def key_value_search(item, l=None):
     '''Recursive function to compile attrs from Character Class
     Need to rename once its figured out'''
     if not l:
         l = []
-    if '__dict__' in dir(obj):
-        for key in obj.__dict__:
-            if '__dict__' in dir(obj) and str(type(obj.__dict__[key]))[1:6] == 'class':
-
-                key_value_nbsp(obj.__dict__[key], l)
+    if '__dict__' in dir(item):
+        for key in item.__dict__:
+            if '__dict__' in dir(item.__dict__[key]):
+                l += ['\n', key.upper()]
+            else:
+                l += [key]
+            key_value_search(item.__dict__[key], l)
     else:
-        l += [": {}".format(obj)]
+        l += [item]
     return l
 
 
