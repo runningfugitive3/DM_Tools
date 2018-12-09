@@ -1,4 +1,5 @@
 '''
+Testing git push
 Aaron wants "Something to track initiative order and creature hit points"
 "Number of ROunds"
 "Spell tracking... buffing nerfing stuff"
@@ -11,7 +12,7 @@ Track total HP and Active HP
  Mobile app - Players track own stuff
  Mobile app - DM can send msgs to Players
  DM view, Player View
- 
+
 Imagery
 Object that modifies other objects temporarily
 Like blessed modifies defense for # turns
