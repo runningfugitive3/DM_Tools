@@ -71,6 +71,12 @@ def store_character(character, filename='viola_vanish.pickle'):
     with open(filename, 'wb') as f:
         pickle.dump(character, filename)
 
+def ability_modifier(l, plus=[]):
+    '''Takes your ability list to produce an ability modifier
+    plus is to add/subtract anything from the ability modifier'''
+    mod = int(sum(l) - 10 / 2)
+    return mod + sum(plus)
+
 def main():
     '''For testing purposes'''
     viola = load_character()

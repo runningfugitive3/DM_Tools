@@ -22,7 +22,7 @@ class Character():
         self.ability = Ability()
         self.body = Body()
         self.person = Person()
-        self.skill = Skill()
+        self.skill = Skill(self.ability)
         self.inventory = Inventory()
 
         #Actions
