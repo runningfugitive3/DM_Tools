@@ -17,13 +17,11 @@ def character_list(character, subsheet=None):
 def character_dict2(item, d=None):
     '''Testing - Recursive function to compile attrs from Character Class'''
     if not d:
-        d = {}
+        d = item.__dict__
     if '__dict__' in dir(item):
         for key in item.__dict__:
-            d[key] = item.__dict__[key]
-            character_dict(item.__dict__[key], d)
+            d[key] = item[key].__dict__
     return d
-
 
 def character_dict(item, d=None):
     '''Recursive function to compile attrs from Character Class
@@ -67,10 +65,16 @@ def load_character(filename='viola_vanish.pickle'):
     with open(filename, 'rb') as f:
         return pickle.load(f)
 
+def store_character(character, filename='viola_vanish.pickle'):
+    '''Stores Character to given pickle file
+    Stores Viola Vanish if no filename given for testing'''
+    with open(filename, 'wb') as f:
+        pickle.dump(character, filename)
 
 def main():
+    '''For testing purposes'''
     viola = load_character()
-    d = character_dict(viola)
+    d = character_dict2(viola)
     print(d)
 
 if __name__ == '__main__':
