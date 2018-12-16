@@ -55,16 +55,7 @@ def print_sheet(character, subsheet=None):
     print('\n'.join(ch_list))
 
 
-def load_character1(filename='viola_vanish.pickle'):
-    '''Loads Character from given pickle file
-    Loads Viola Vanish if no filename given for testing'''
-    with open(filename, 'rb') as f:
-        return pickle.load(f)
-    # to generate filename from character
-    #'_'.join(viola.name.split(' ')).lower() + '.pickle'
-
-
-def load_character2(name=None, filename='DungeonMaster.pickle'):
+def load_character(name=None, filename='DungeonMaster.pickle'):
     '''Returns Character db dict from given pickle file
     if name is given returns that specific character dict'''
     with open(filename, 'rb') as f:
@@ -76,7 +67,8 @@ def load_character2(name=None, filename='DungeonMaster.pickle'):
                 return db[name]
             except Exception as e:
                 print(e, "Character name not found")
-
+    #Should load direct to Character class
+    #Need to figure out how to address differences in dict vs Character class 
 
 def store_character(character, filename='DungeonMaster.pickle'):
     '''Stores Character as dict to given pickle file
