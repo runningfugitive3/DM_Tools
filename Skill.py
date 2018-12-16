@@ -2,7 +2,31 @@ class Skill():
     """docstring for Skill.
     Not sure if this will work like this having Skill
     dependant on Ability"""
-    def __init__(self, ability):
+    def __init__(self, ability, d=None):
+        if not d:
+            self.init_skills(ability)
+
+        if d:
+            self.athletics = d['athletics']
+            self.acrobatics = d['acrobatics']
+            self.sleight_of_hand = d['sleight_of_hand']
+            self.stealth = d['stealth']
+            self.arcana = d['arcana']
+            self.history = d['history']
+            self.investigation = d['investigation']
+            self.nature = d['nature']
+            self.religion = d['religion']
+            self.animal_handling = d['animal_handling']
+            self.insight = d['insight']
+            self.medicine = d['medicine']
+            self.perception = d['perception']
+            self.survival = d['survival']
+            self.deception = d['deception']
+            self.intimidation = d['intimidation']
+            self.performance = d['performance']
+            self.persuasion = d['persuasion']
+
+    def init_skills(self, ability):
         str_mod = int((sum(ability.strength) - 10) / 2)
         dex_mod = int((sum(ability.dexterity) - 10) / 2)
         int_mod = int((sum(ability.intelligence) - 10) / 2)

@@ -1,6 +1,7 @@
-#import Character
+import Character
 #import Dice
 import pickle
+import os
 #Store Characters
 #Get Characters from store
 #Print Character
@@ -14,30 +15,24 @@ def character_list(character, subsheet=None):
             ch_list += key_value_list(character)
             return ch_list
 
-def character_dict2(item, d=None):
-    '''Testing - Recursive function to compile attrs from Character Class'''
-    if not d:
-        d = item.__dict__
-    if '__dict__' in dir(item):
-        for key in item.__dict__:
-            d[key] = item[key].__dict__
-    return d
 
 def character_dict(item, d=None):
-    '''Recursive function to compile attrs from Character Class
-    Functioning but doesn't preserve hierarchy '''
+    '''Recursive function to compile attrs from Character Class'''
     if not d:
         d = {}
     if '__dict__' in dir(item):
         for key in item.__dict__:
-            d[key] = item.__dict__[key]
-            character_dict(item.__dict__[key], d)
+            if '__dict__' in dir(item.__dict__[key]):
+                d[key] = character_dict(item.__dict__[key])
+            else:
+                d[key] = item.__dict__[key]
     return d
 
 
 def key_value_list(item, l=None):
     '''Recursive function to compile attrs from Character Class
-    Need to rename once its figured out'''
+    Need to rename once its figured out
+    Used by character_list and print_sheet for now'''
     if not l:
         l = []
     if '__dict__' in dir(item):
@@ -59,17 +54,50 @@ def print_sheet(character, subsheet=None):
             ch_list[index] = str(ch_list[index])
     print('\n'.join(ch_list))
 
-def load_character(filename='viola_vanish.pickle'):
+
+def load_character1(filename='viola_vanish.pickle'):
     '''Loads Character from given pickle file
     Loads Viola Vanish if no filename given for testing'''
     with open(filename, 'rb') as f:
         return pickle.load(f)
+    # to generate filename from character
+    #'_'.join(viola.name.split(' ')).lower() + '.pickle'
 
-def store_character(character, filename='viola_vanish.pickle'):
-    '''Stores Character to given pickle file
+
+def load_character2(name=None, filename='DungeonMaster.pickle'):
+    '''Returns Character db dict from given pickle file
+    if name is given returns that specific character dict'''
+    with open(filename, 'rb') as f:
+        if not name:
+            return pickle.load(f)
+        elif name:
+            db = pickle.load(f)
+            try:
+                return db[name]
+            except Exception as e:
+                print(e, "Character name not found")
+
+
+def store_character(character, filename='DungeonMaster.pickle'):
+    '''Stores Character as dict to given pickle file
+    Uses character first name as dict key
     Stores Viola Vanish if no filename given for testing'''
+    if not os.path.exists(filename):
+        db ={}
+        with open(filename, 'wb') as f:
+            pickle.dump(db,f)
+        store_character(character, filename)
+    d = character_dict(character)
+    if ' ' in character.name:
+        key = character.name[0:character.name.find(' ')]
+    else:
+        key = character.name
+    with open(filename, 'rb') as f:
+        db = pickle.load(f)
+        db[key] = d
     with open(filename, 'wb') as f:
-        pickle.dump(character, filename)
+        pickle.dump(db,f)
+
 
 def ability_modifier(l, plus=[]):
     '''Takes your ability list to produce an ability modifier
@@ -77,11 +105,16 @@ def ability_modifier(l, plus=[]):
     mod = int(sum(l) - 10 / 2)
     return mod + sum(plus)
 
+
 def main():
     '''For testing purposes'''
-    viola = load_character()
-    d = character_dict2(viola)
+    ch = load_character1(filename='rhea_galena.pickle')
+    d = character_dict(ch)
     print(d)
+    store_character(ch)
+    db = load_character2()
+    print(db)
+
 
 if __name__ == '__main__':
     main()
