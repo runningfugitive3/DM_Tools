@@ -7,13 +7,13 @@ class Person():
             self.personality = None
             self.features_traits = None
             self.proficiencies = None
-            self.languages = None
+            self.languages = ['Common']
             self.ideals = None
             self.bonds = None
             self.flaws = None
             self.alignment = None
             self.faction = None
-            self.allies_organziations = None
+            self.allies_organizaions = None
 
         if d:
             self.backstory = d['backstory']
@@ -27,4 +27,4 @@ class Person():
             self.flaws = d['flaws']
             self.alignment = d['alignment']
             self.faction = d['faction']
-            self.allies_organziations = d['allies_organziations']
+            self.allies_organizations = d['allies_organizations']

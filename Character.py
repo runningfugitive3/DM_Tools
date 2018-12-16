@@ -16,10 +16,11 @@ class Character():
             self.name = name
             self._class = "No Class"
             self.level = 1
-            self.XP = 0
+            self.xp = 0
             self.alive = True
             self.armor_class = 0
-            self.HP = 1
+            self.hp = 1
+            self.hp_max = 1
             self.initiative = 0
             self.speed = 0
 
@@ -34,10 +35,11 @@ class Character():
             self.name = d['name']
             self._class = d['_class']
             self.level = d['level']
-            self.XP = d['XP']
+            self.xp = d['xp']
             self.alive = d['alive']
             self.armor_class = d['armor_class']
-            self.HP = d['HP']
+            self.hp = d['hp']
+            self.hp_max = d['hp_max']
             self.initiative = d['initiative']
             self.speed = d['speed']
 
