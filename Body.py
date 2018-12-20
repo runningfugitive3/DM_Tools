@@ -21,3 +21,7 @@ class Body():
             self.skin = d['skin']
             self.hair = d['hair']
             self.appearance = d['appearance']
+
+    def p(self):
+        for key in self.__dict__:
+            print("{}: {}".format(key,self.__dict__[key]))

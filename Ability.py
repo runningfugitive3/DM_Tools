@@ -29,6 +29,6 @@ class Ability():
             self.wisdom = [roll[4]]
             self.charisma = [roll[5]]
 
-#print("strength: {}\ncharisma: {}\ndexterity: {}\nconstitution: {}\nintelligence: {}\nwisdom: {}".format(ra.strength, r
-#a.charisma, ra.dexterity, ra.constitution, ra.intelligence, ra.wisdom))
-#
+    def p(self):
+        for key in self.__dict__:
+            print("{}: {}".format(key,self.__dict__[key]))

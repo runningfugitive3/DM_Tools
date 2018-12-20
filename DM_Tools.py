@@ -1,6 +1,9 @@
 import Character
 import pickle
 import os
+import ast
+
+#Need to send most of these to Character Class as methods
 
 def character_dict(item, d=None):
     '''Recursive function to compile attrs from Character Class'''
@@ -18,7 +21,7 @@ def character_dict(item, d=None):
 def character_list(item, l=None):
     '''Recursive function to compile attrs from Character Class
     Need to rename once its figured out
-    Used by character_list and print_sheet for now'''
+    Used by character_tsv'''
     if not l:
         l = []
     if '__dict__' in dir(item):
@@ -33,21 +36,11 @@ def character_list(item, l=None):
     return l
 
 
-def print_sheet(character, subsheet=None):
-    '''Prints Character sheet from character_list'''
-    if str(type(character))[1:-1] == "class 'Character.Character'":
-        if not subsheet:
-            ch_list = ['CHARACTER SHEET']
-            ch_list += character_list(character)
-    for index in range(len(ch_list)):
-        if type(ch_list[index]) is not str:
-            ch_list[index] = str(ch_list[index])
-    print('\n'.join(ch_list))
-
-
 def load_character(name=None, filename='DungeonMaster.pickle'):
-    '''Returns character from filename by first name
+    '''Returns character as class from filename by first name
     if no name given returns entire db as dict'''
+    if name:
+        name = name.lower()
     with open(filename, 'rb') as f:
         if not name:
             return pickle.load(f)
@@ -70,9 +63,9 @@ def store_character(character, filename='DungeonMaster.pickle'):
         store_character(character, filename)
     d = character_dict(character)
     if ' ' in character.name:
-        key = character.name[0:character.name.find(' ')]
+        key = character.name[0:character.name.find(' ')].lower()
     else:
-        key = character.name
+        key = character.name.lower()
     with open(filename, 'rb') as f:
         db = pickle.load(f)
         db[key] = d
@@ -81,17 +74,18 @@ def store_character(character, filename='DungeonMaster.pickle'):
 
 
 def ability_modifier(l, plus=[]):
-    '''Takes your ability list to produce an ability modifier
-    plus is to add/subtract anything from the ability modifier'''
+    '''Takes your ability as a list to produce an ability modifier
+    minus 10 divide by two round down
+    plus attr is used to add/subtract anything from the ability modifier'''
     mod = int(sum(l) - 10 / 2)
     return mod + sum(plus)
 
 
-def character_csv(character):
-    '''Creates CSV of Character attrs from character_list
+def character_tsv(character):
+    '''Creates TSV of Character attrs from character_list
     if item in list is UPPER, skips to next line'''
     l = character_list(character)
-    name = character.name.replace(' ','_')
+    name = character.name.replace(' ','_').lower()
     s = ''
     flip = False
     for i in range(0,len(l)-1):
@@ -102,30 +96,42 @@ def character_csv(character):
         else:
             if i % 2 == 0:
                 if not flip:
-                    s += '"{}","{}"\n'.format(l[i],l[i+1])
+                    s += '{}\t{}\n'.format(l[i],l[i+1])
                 if flip:
-                    s += '"{}","{}"\n'.format(l[i-1],l[i])
-    with open(name + '.csv', 'w') as f:
+                    s += '{}\t{}\n'.format(l[i-1],l[i])
+    with open(name + '.tsv', 'w') as f:
         f.write(s)
 
-def read_character_csv(filename):
+
+def read_character_tsv(filename):
     '''Reads a character csv, returns a character dict
     character dict doesnt preserve hierarchy
     Will return a character class soon'''
     with open(filename, 'r') as f:
         l = f.readlines()
     d = {}
+    sub_d = None
     for item in l:
-        i = item.replace('"','').replace('\n','')
-        if ',' in item:
-            d[i.split(',')[0]] = i.split(',')[1]
-    return d
+        i = item.replace('\n','')
+        if '\t' in i and not sub_d:
+            d[i.split('\t')[0]] = i.split('\t')[1]
+        elif '\t' in i and sub_d:
+            if ':' in i or '[' in i:
+                d[sub_d][i.split('\t')[0]] = ast.literal_eval(i.split('\t')[1])
+            else:
+                d[sub_d][i.split('\t')[0]] = i.split('\t')[1]
+        else:
+            sub_d = i.lower()
+            d[sub_d] = {}
+    return Character.Character(d['player_name'], d['name'], d=d)
 
 
 def main():
     '''For testing purposes'''
-    d = read_character_csv('Viola_Vanish.csv')
-    print(d)
+    rhea = read_character_tsv('rhea_galena.tsv')
+    viola = read_character_tsv('viola_vanish.tsv')
+    viola.p()
+    rhea.p()
 
 if __name__ == '__main__':
     main()

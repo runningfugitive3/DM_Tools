@@ -13,7 +13,7 @@ class Person():
             self.flaws = None
             self.alignment = None
             self.faction = None
-            self.allies_organizaions = None
+            self.allies_organizations = None
 
         if d:
             self.backstory = d['backstory']
@@ -28,3 +28,7 @@ class Person():
             self.alignment = d['alignment']
             self.faction = d['faction']
             self.allies_organizations = d['allies_organizations']
+
+    def p(self):
+        for key in self.__dict__:
+            print("{}: {}".format(key,self.__dict__[key]))

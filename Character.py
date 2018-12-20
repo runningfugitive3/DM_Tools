@@ -34,14 +34,14 @@ class Character():
             self.player_name = d['player_name']
             self.name = d['name']
             self._class = d['_class']
-            self.level = d['level']
-            self.xp = d['xp']
+            self.level = int(d['level'])
+            self.xp = int(d['xp'])
             self.alive = d['alive']
             self.armor_class = d['armor_class']
-            self.hp = d['hp']
-            self.hp_max = d['hp_max']
-            self.initiative = d['initiative']
-            self.speed = d['speed']
+            self.hp = int(d['hp'])
+            self.hp_max = int(d['hp_max'])
+            self.initiative = int(d['initiative'])
+            self.speed = int(d['speed'])
 
             if 'ability' in d.keys():
                 self.ability = Ability(d=d['ability'], roll=roll)
@@ -68,13 +68,42 @@ class Character():
             else:
                 self.inventory = Inventory()
 
+    def p(self):
+        print("\nCHARACTER SHEET\n")
+        for key in self.__dict__:
+            if '__dict__' not in dir(self.__dict__[key]):
+                print("{}: {}".format(key,self.__dict__[key]))
+        print("\nABILITIES")
+        self.ability.p()
+        print("\nSKILLS")
+        self.skill.p()
+        print("\nAPPEARANCE")
+        self.body.p()
+        print("\nPERSONALITY")
+        self.person.p()
+        print("\nINVENTORY")
+        self.inventory.p()
+
+#Not sure if this is necessary -- maybe they should just be stored as classes
+    def make_dict(self):
+        d = {}
+        for key in self.__dict__:
+            if '__dict__' not in dir(self.__dict__[key]):
+                d[key] = self.__dict__[key]
+        d['ability'] = self.ability.__dict__
+        d['skill'] = self.skill.__dict__
+        d['body'] = self.body.__dict__
+        d['person'] = self.person.__dict__
+        d['inventory'] = self.inventory.__dict__
+        return d
+
         #Actions
         #Attacks & Spellcasting
 
 
 
 
-#csv parser to build Character?
+
         #def ch_load(self) use pickle
         #with open(first and last.pickle,'rb') as f:
         #character = pickle.load(f)

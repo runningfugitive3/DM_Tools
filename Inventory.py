@@ -12,3 +12,7 @@ class Inventory():
             self.weapon = d['weapon']
             self.armor = d['armor']
             self.other = d['other']
+
+    def p(self):
+        for key in self.__dict__:
+            print("{}: {}".format(key,self.__dict__[key]))

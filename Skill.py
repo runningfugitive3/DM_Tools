@@ -52,3 +52,7 @@ class Skill():
         self.intimidation = [cha_mod]
         self.performance = [cha_mod]
         self.persuasion = [cha_mod]
+
+    def p(self):
+        for key in self.__dict__:
+            print("{}: {}".format(key,self.__dict__[key]))

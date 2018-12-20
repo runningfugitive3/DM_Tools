@@ -1,0 +1,64 @@
+player_name	Sean Avitt
+name	Viola Vanish
+_class	Bard
+level	1
+xp	1
+alive	True
+armor_class	0
+hp	1
+hp_max	1
+initiative	0
+speed	30
+ABILITY
+strength	[9, 1]
+dexterity	[15]
+constitution	[10, 1]
+intelligence	[14]
+wisdom	[13]
+charisma	[15, 2]
+BODY
+race	Half-elf
+age	21
+height	5ft 5in
+weight	164 lbs
+eyes	green
+skin	scaly
+hair	long wavy purple
+appearance	Cute, tomboy, stocky, older than she looks, scar on her right arm
+PERSON
+backstory
+background	entertainer - singer
+personality	I love a good insult, even one directed at me.
+features_traits
+proficiencies	['Darkvision', 'advantage for saving throws on being charmed', 'magic cant put me to sleep', 'light armor', 'simple weapons', 'hand crossbows', 'longswords', 'rapiers', 'shortswords', 'guitar', 'singing', 'trumpet', 'performance', 'persuasion', 'stealth']
+languages	['Common', 'Elvish', 'Sylvan']
+ideals	Creativity - The world is ineed of new ideas and bold action. (Chaotic)
+bonds	I will do anything to prove myself superior to my hated rival.
+flaws	A scandal prevents me from ever going home again. That kind of trouble seems to follow me around.
+alignment	Chaotic neutral
+faction
+allies_organizations
+SKILL
+athletics	[0]
+acrobatics	[0]
+sleight_of_hand	[0]
+stealth	[2, 2]
+arcana	[0]
+history	[0]
+investigation	[0]
+nature	[0]
+religion	[0]
+animal_handling	[0]
+insight	[0]
+medicine	[0]
+perception	[]
+survival	[0]
+deception	[0]
+intimidation	[0]
+performance	[3, 2]
+persuasion	[3, 2]
+INVENTORY
+coin	{'cp': 0, 'sp': 0, 'ep': 0, 'gp': 0, 'pp': 0}
+weapon	{'spife': "It's a spoon-knife imbued with flavor from the inside of the last person's mouth who owned it."}
+armor	{'rags': "You're poor. At least, you're not naked?"}
+other	{'trinket': "It's evil and it keeps me awake."}
