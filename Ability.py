@@ -20,7 +20,7 @@ class Ability():
             self.charisma = [0]
 
         if roll:
-            roll()
+            self.roll()
 
     def roll(self):
             roll = Dice('character').throw()

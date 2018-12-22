@@ -4,7 +4,7 @@ class Skill():
     dependant on Ability"""
     def __init__(self, ability, d=None):
         if not d:
-            self.init_skills(ability)
+            self.init_skill(ability)
 
         if d:
             self.athletics = d['athletics']
@@ -26,7 +26,7 @@ class Skill():
             self.performance = d['performance']
             self.persuasion = d['persuasion']
 
-    def init_skills(self, ability):
+    def init_skill(self, ability):
         str_mod = int((sum(ability.strength) - 10) / 2)
         dex_mod = int((sum(ability.dexterity) - 10) / 2)
         int_mod = int((sum(ability.intelligence) - 10) / 2)

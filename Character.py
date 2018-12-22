@@ -1,3 +1,6 @@
+import pickle
+import os
+import ast
 from Ability import Ability
 from Body import Body
 from Person import Person
@@ -9,7 +12,7 @@ class Character():
     Just replace player_name with Monster or NPC.
     Add dict of character for d to load character
     roll=True to have auto assigned stats"""
-    def __init__(self, player_name, name, d=None, roll=False):
+    def __init__(self, player_name='Dungeon Master', name=None, d=None, roll=False):
         #Basics
         if not d:
             self.player_name = player_name
@@ -100,30 +103,144 @@ class Character():
         #Actions
         #Attacks & Spellcasting
 
-
-
-
-
-        #def ch_load(self) use pickle
-        #with open(first and last.pickle,'rb') as f:
-        #character = pickle.load(f)
-
-        #def ch_store(self) use pickle
-        #with open(first_last.pickle,'rb') as f:
-        #pickle.dump(self, f)
-
-        #def sheet(self, keyword=none):
-        #if not keyword:
-            #self.
-        #[i for i in dir(viola.ability) if not callable(i) and i[1] is not '_']
-
 # Build function that would go through each attr in d
 # And find corresponding class attr instead of having to hard type it in each class?
+
+
+    def load_from_db(self, name, filename='DungeonMaster.pickle'):
+        '''Returns character as class from filename by first name'''
+        with open(filename, 'rb') as f:
+            db = pickle.load(f)
+            try:
+                return self.__init__(db[name]['player_name'], db[name]['name'], db[name])
+            except Exception as e:
+                print(e)
+
+
+    def store_to_db(self, filename='DungeonMaster.pickle'):
+        '''Stores Character as dict to given pickle file
+        Uses character first name as dict key
+        Stores Viola Vanish if no filename given for testing'''
+        if not os.path.exists(filename):
+            db ={}
+            with open(filename, 'wb') as f:
+                pickle.dump(db,f)
+            store_to_db(self, filename)
+        d = make_dict(character)
+        if ' ' in self.name:
+            key = self.name[0:self.name.find(' ')].lower()
+        else:
+            key = self.name.lower()
+        with open(filename, 'rb') as f:
+            db = pickle.load(f)
+            db[key] = d
+        with open(filename, 'wb') as f:
+            pickle.dump(db,f)
+
+
+    def make_list(self, l=None):
+        '''Recursive function to compile attrs from Character Class
+        Need to rename once its figured out
+        Used by character_tsv'''
+        if not l:
+            l = []
+        if '__dict__' in dir(self):
+            for key in self.__dict__:
+                if '__dict__' in dir(self.__dict__[key]):
+                    l += [key.upper()]
+                else:
+                    l += [key]
+                make_list(self.__dict__[key], l)
+        else:
+            l += [item]
+        return l
+
+
+    def make_tsv(self):
+        '''Creates TSV of Character attrs from character_list
+        if item in list is UPPER, skips to next line'''
+        l = self.make_list()
+        name = self.name.replace(' ','_').lower()
+        s = ''
+        flip = False
+        for i in range(0,len(l)-1):
+            if str(l[i]).isupper():
+                s += '{}\n'.format(l[i])
+                flip = not flip
+                print(l[i], flip)
+            else:
+                if i % 2 == 0:
+                    if not flip:
+                        s += '{}\t{}\n'.format(l[i],l[i+1])
+                    if flip:
+                        s += '{}\t{}\n'.format(l[i-1],l[i])
+        with open(name + '.tsv', 'w') as f:
+            f.write(s)
+
+
+    def read_tsv(self, filename):
+        '''Reads a character csv, returns a character class'''
+        with open(filename, 'r') as f:
+            l = f.readlines()
+        d = {}
+        sub_d = None
+        for item in l:
+            i = item.replace('\n','')
+            if '\t' in i and not sub_d:
+                d[i.split('\t')[0]] = i.split('\t')[1]
+            elif '\t' in i and sub_d:
+                if ':' in i or '[' in i:
+                    d[sub_d][i.split('\t')[0]] = ast.literal_eval(i.split('\t')[1])
+                else:
+                    d[sub_d][i.split('\t')[0]] = i.split('\t')[1]
+            else:
+                sub_d = i.lower()
+                d[sub_d] = {}
+        return self.__init__(d['player_name'], d['name'], d=d)
+
+
+def load_from_db(name, filename='DungeonMaster.pickle'):
+    '''Returns character as class from filename by first name'''
+    with open(filename, 'rb') as f:
+        db = pickle.load(f)
+        try:
+            return Character(db[name]['player_name'], db[name]['name'], db[name])
+        except Exception as e:
+            print("Didn't find anything for ", e)
+
+
+def read_tsv(filename):
+    '''Reads a character csv, returns a character class'''
+    with open(filename, 'r') as f:
+        l = f.readlines()
+    d = {}
+    sub_d = None
+    for item in l:
+        i = item.replace('\n','')
+        if '\t' in i and not sub_d:
+            d[i.split('\t')[0]] = i.split('\t')[1]
+        elif '\t' in i and sub_d:
+            if ':' in i or '[' in i:
+                d[sub_d][i.split('\t')[0]] = ast.literal_eval(i.split('\t')[1])
+            else:
+                d[sub_d][i.split('\t')[0]] = i.split('\t')[1]
+        else:
+            sub_d = i.lower()
+            d[sub_d] = {}
+    print(d)
+    return Character(d['player_name'], d['name'], d=d)
+
 
 def main():
     '''For testing purposes'''
     test1 = Character("No One", "Char Tere", roll=True)
     print("Name: {}\nStrength: {}\nAthletics: {}".format(test1.name, test1.ability.strength, test1.skill.athletics))
+
+    viola = read_tsv('viola_vanish.tsv')
+    print("Name: {}\nStrength: {}\nAthletics: {}".format(viola.name, viola.ability.strength, viola.skill.athletics))
+
+    viola.load_from_db('viola')
+    print("Name: {}\nStrength: {}\nAthletics: {}".format(viola.name, viola.ability.strength, viola.skill.athletics))
 
 if __name__ == '__main__':
     main()
