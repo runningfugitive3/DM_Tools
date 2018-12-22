@@ -1,8 +1,11 @@
 class Skill():
     """docstring for Skill.
-    Not sure if this will work like this having Skill
-    dependant on Ability"""
+    stores ability modifiers for each Skill
+    dependent on Ability"""
     def __init__(self, ability, d=None):
+
+        self.ability = ability
+
         if not d:
             self.init_skill(ability)
 
@@ -26,12 +29,12 @@ class Skill():
             self.performance = d['performance']
             self.persuasion = d['persuasion']
 
-    def init_skill(self, ability):
-        str_mod = int((sum(ability.strength) - 10) / 2)
-        dex_mod = int((sum(ability.dexterity) - 10) / 2)
-        int_mod = int((sum(ability.intelligence) - 10) / 2)
-        wis_mod = int((sum(ability.wisdom) - 10) / 2)
-        cha_mod = int((sum(ability.charisma) - 10) / 2)
+    def init_skill(self):
+        str_mod = int((sum(self.ability.strength) - 10) / 2)
+        dex_mod = int((sum(self.ability.dexterity) - 10) / 2)
+        int_mod = int((sum(self.ability.intelligence) - 10) / 2)
+        wis_mod = int((sum(self.ability.wisdom) - 10) / 2)
+        cha_mod = int((sum(self.ability.charisma) - 10) / 2)
 
         #Skills
         self.athletics = [str_mod]

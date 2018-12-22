@@ -126,7 +126,7 @@ class Character():
             with open(filename, 'wb') as f:
                 pickle.dump(db,f)
             store_to_db(self, filename)
-        d = make_dict(character)
+        d = self.make_dict()
         if ' ' in self.name:
             key = self.name[0:self.name.find(' ')].lower()
         else:
@@ -233,14 +233,8 @@ def read_tsv(filename):
 
 def main():
     '''For testing purposes'''
-    test1 = Character("No One", "Char Tere", roll=True)
-    print("Name: {}\nStrength: {}\nAthletics: {}".format(test1.name, test1.ability.strength, test1.skill.athletics))
-
-    viola = read_tsv('viola_vanish.tsv')
-    print("Name: {}\nStrength: {}\nAthletics: {}".format(viola.name, viola.ability.strength, viola.skill.athletics))
-
-    viola.load_from_db('viola')
-    print("Name: {}\nStrength: {}\nAthletics: {}".format(viola.name, viola.ability.strength, viola.skill.athletics))
+    viola = load_from_db('viola')
+    viola.skill.p()
 
 if __name__ == '__main__':
     main()
