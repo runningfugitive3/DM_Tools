@@ -7,7 +7,7 @@ class Skill():
         self.ability = ability
 
         if not d:
-            self.init_skill(ability)
+            self.init_skill()
 
         if d:
             self.athletics = d['athletics']

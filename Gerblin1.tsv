@@ -1,0 +1,64 @@
+player_name	Dungeon Master
+name	Gerblin1
+_class	Gerblin
+level	1
+xp	1
+alive	TRUE
+armor_class	0
+hp	1
+hp_max	1
+initiative	0
+speed	30
+ABILITY	
+strength	
+dexterity	
+constitution	
+intelligence	
+wisdom	
+charisma	
+SKILL	
+athletics	[0]
+acrobatics	[0]
+sleight_of_hand	[0]
+stealth	[0]
+arcana	[0]
+history	[0]
+investigation	[0]
+nature	[0]
+religion	[0]
+animal_handling	[0]
+insight	[0]
+medicine	[0]
+perception	[0]
+survival	[0]
+deception	[0]
+intimidation	[0]
+performance	[0]
+persuasion	[0]
+BODY	
+race	Gerblin
+age	40
+height	3ft 2in
+weight	150lbs
+eyes	black
+skin	scaly
+hair	greasy
+appearance	Gerblin-y
+PERSON	
+backstory	
+background	
+personality	Unfriendly
+features_traits	
+proficiencies	[]
+languages	['Common', 'Gerblin']
+ideals	
+bonds	
+flaws	
+alignment	Evil
+faction	
+allies_organizations	Gerblin mafia
+INVENTORY	
+coin	{'cp': 0, 'sp': 0, 'ep': 0, 'gp': 0, 'pp': 0}
+weapon	{'Hurty Stick': 'A stick for hurting'}
+armor	{'rags': 'Minor protection from natural elements'}
+other	{'nose ring': 'It's a Gerblin trend'}

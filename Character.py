@@ -184,7 +184,9 @@ def load_from_db(name, filename='DungeonMaster.pickle'):
 
 
 def read_tsv(filename):
-    '''Reads a character csv, returns a character class'''
+    '''Reads a character tsv, returns a character class
+    DOESNT WORK IF YOU ACCIDENTALLY CREATE A DELIMITER
+    AFTER THE UPPER TITLES -- NEEDS FIXED'''
     with open(filename, 'r') as f:
         l = f.readlines()
     d = {}
@@ -201,16 +203,14 @@ def read_tsv(filename):
         else:
             sub_d = i.lower()
             d[sub_d] = {}
+    print(d)
     return Character(d['player_name'], d['name'], d=d)
 
 
 def main():
     '''For testing purposes'''
-    rhea = load_from_db('rhea')
-    rhea.p()
-    rhea.make_tsv()
-    rhea.read_tsv('rhea_galena.tsv')
-    rhea.p()
+    gerblin = read_tsv('Gerblin1.tsv')
+    gerblin.p()
 
 
 if __name__ == '__main__':
