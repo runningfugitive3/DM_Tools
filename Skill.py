@@ -58,4 +58,5 @@ class Skill():
 
     def p(self):
         for key in self.__dict__:
-            print("{}: {}".format(key,self.__dict__[key]))
+            if key is not 'ability':
+                print("{}: {}".format(key,self.__dict__[key]))

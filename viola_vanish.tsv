@@ -16,6 +16,25 @@ constitution	[10, 1]
 intelligence	[14]
 wisdom	[13]
 charisma	[15, 2]
+SKILL
+athletics	[0]
+acrobatics	[2]
+sleight_of_hand	[2]
+stealth	[2]
+arcana	[2]
+history	[2]
+investigation	[2]
+nature	[2]
+religion	[2]
+animal_handling	[1]
+insight	[1]
+medicine	[1]
+perception	[1]
+survival	[1]
+deception	[3]
+intimidation	[3]
+performance	[3]
+persuasion	[3]
 BODY
 race	Half-elf
 age	21
@@ -26,39 +45,20 @@ skin	scaly
 hair	long wavy purple
 appearance	Cute, tomboy, stocky, older than she looks, scar on her right arm
 PERSON
-backstory
+backstory	
 background	entertainer - singer
 personality	I love a good insult, even one directed at me.
-features_traits
+features_traits	
 proficiencies	['Darkvision', 'advantage for saving throws on being charmed', 'magic cant put me to sleep', 'light armor', 'simple weapons', 'hand crossbows', 'longswords', 'rapiers', 'shortswords', 'guitar', 'singing', 'trumpet', 'performance', 'persuasion', 'stealth']
 languages	['Common', 'Elvish', 'Sylvan']
 ideals	Creativity - The world is ineed of new ideas and bold action. (Chaotic)
 bonds	I will do anything to prove myself superior to my hated rival.
 flaws	A scandal prevents me from ever going home again. That kind of trouble seems to follow me around.
 alignment	Chaotic neutral
-faction
-allies_organizations
-SKILL
-athletics	[0]
-acrobatics	[0]
-sleight_of_hand	[0]
-stealth	[2, 2]
-arcana	[0]
-history	[0]
-investigation	[0]
-nature	[0]
-religion	[0]
-animal_handling	[0]
-insight	[0]
-medicine	[0]
-perception	[]
-survival	[0]
-deception	[0]
-intimidation	[0]
-performance	[3, 2]
-persuasion	[3, 2]
+faction	
+allies_organizations	
 INVENTORY
 coin	{'cp': 0, 'sp': 0, 'ep': 0, 'gp': 0, 'pp': 0}
 weapon	{'spife': "It's a spoon-knife imbued with flavor from the inside of the last person's mouth who owned it."}
 armor	{'rags': "You're poor. At least, you're not naked?"}
-other	{'trinket': "It's evil and it keeps me awake."}
+other	{'trinket': "Because for some reason, DnD really wants you to have some weird kitchy piece of shit with a inordinately complex backstory-- also it's fun!"}

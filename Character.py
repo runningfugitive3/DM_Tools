@@ -87,7 +87,10 @@ class Character():
         print("\nINVENTORY")
         self.inventory.p()
 
-#Not sure if this is necessary -- maybe they should just be stored as classes
+        #Actions
+        #Attacks & Spellcasting
+
+
     def make_dict(self):
         d = {}
         for key in self.__dict__:
@@ -99,13 +102,6 @@ class Character():
         d['person'] = self.person.__dict__
         d['inventory'] = self.inventory.__dict__
         return d
-
-        #Actions
-        #Attacks & Spellcasting
-
-# Build function that would go through each attr in d
-# And find corresponding class attr instead of having to hard type it in each class?
-
 
     def load_from_db(self, name, filename='DungeonMaster.pickle'):
         '''Returns character as class from filename by first name'''
@@ -138,42 +134,23 @@ class Character():
             pickle.dump(db,f)
 
 
-    def make_list(self, l=None):
-        '''Recursive function to compile attrs from Character Class
-        Need to rename once its figured out
-        Used by character_tsv'''
-        if not l:
-            l = []
-        if '__dict__' in dir(self):
-            for key in self.__dict__:
-                if '__dict__' in dir(self.__dict__[key]):
-                    l += [key.upper()]
-                else:
-                    l += [key]
-                make_list(self.__dict__[key], l)
-        else:
-            l += [item]
-        return l
-
-
     def make_tsv(self):
-        '''Creates TSV of Character attrs from character_list
-        if item in list is UPPER, skips to next line'''
-        l = self.make_list()
-        name = self.name.replace(' ','_').lower()
+        '''Make a tab separated values file of character class'''
+        d = self.make_dict()
         s = ''
-        flip = False
-        for i in range(0,len(l)-1):
-            if str(l[i]).isupper():
-                s += '{}\n'.format(l[i])
-                flip = not flip
-                print(l[i], flip)
+        for key in d:
+            if type(d[key]) is dict:
+                s += '{}\n'.format(key.upper())
+                for k in d[key]:
+                    if type(d[key][k]) in [dict, int, str, bool, list]:
+                        s += '{}\t{}\n'.format(k, d[key][k])
+                    else:
+                        print('Didnt include {} bc its type {}'.format(k, type(d[key][k])))
+            elif type(d[key]) in [int, str, bool, list]:
+                s += '{}\t{}\n'.format(key, d[key])
             else:
-                if i % 2 == 0:
-                    if not flip:
-                        s += '{}\t{}\n'.format(l[i],l[i+1])
-                    if flip:
-                        s += '{}\t{}\n'.format(l[i-1],l[i])
+                print('Didnt include {} bc its type {}'.format(key, type(d[key])))
+        name = self.name.replace(' ','_').lower()
         with open(name + '.tsv', 'w') as f:
             f.write(s)
 
@@ -196,7 +173,7 @@ class Character():
             else:
                 sub_d = i.lower()
                 d[sub_d] = {}
-        return self.__init__(d['player_name'], d['name'], d=d)
+        return Character(d['player_name'], d['name'], d=d)
 
 
 def load_from_db(name, filename='DungeonMaster.pickle'):
@@ -234,7 +211,8 @@ def read_tsv(filename):
 def main():
     '''For testing purposes'''
     viola = load_from_db('viola')
-    viola.skill.p()
+    viola.make_tsv2()
+
 
 if __name__ == '__main__':
     main()
