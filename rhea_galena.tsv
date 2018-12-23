@@ -16,6 +16,25 @@ constitution	[12]
 intelligence	[14]
 wisdom	[10]
 charisma	[16, 1]
+SKILL
+athletics	[1]
+acrobatics	[1]
+sleight_of_hand	[1]
+stealth	[1]
+arcana	[2]
+history	[2]
+investigation	[2]
+nature	[2]
+religion	[2]
+animal_handling	[0]
+insight	[0]
+medicine	[0]
+perception	[0]
+survival	[0]
+deception	[3]
+intimidation	[3]
+performance	[3]
+persuasion	[3]
 BODY
 race	Human
 age	452
@@ -38,27 +57,8 @@ flaws
 alignment	
 faction	
 allies_organizations	
-SKILL
-athletics	[1]
-acrobatics	[1]
-sleight_of_hand	[1]
-stealth	[1]
-arcana	[2]
-history	[2]
-investigation	[2]
-nature	[2]
-religion	[2]
-animal_handling	[0]
-insight	[0]
-medicine	[0]
-perception	[0]
-survival	[0]
-deception	[3]
-intimidation	[3]
-performance	[3]
-persuasion	[3]
 INVENTORY
 coin	{'cp': 0, 'sp': 0, 'ep': 0, 'gp': 0, 'pp': 0}
 weapon	{'spife': "It's a spoon-knife imbued with flavor from the inside of the last person's mouth who owned it."}
 armor	{'rags': "You're poor. At least, you're not naked?"}
-other	{}
+other	{'trinket': "Because for some reason, DnD really wants you to have some weird kitchy piece of shit with a inordinately complex backstory-- also it's fun!"}

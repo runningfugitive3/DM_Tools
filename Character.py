@@ -98,6 +98,8 @@ class Character():
                 d[key] = self.__dict__[key]
         d['ability'] = self.ability.__dict__
         d['skill'] = self.skill.__dict__
+        if 'ability' in d['skill']:
+            del d['skill']['ability']
         d['body'] = self.body.__dict__
         d['person'] = self.person.__dict__
         d['inventory'] = self.inventory.__dict__
@@ -142,14 +144,9 @@ class Character():
             if type(d[key]) is dict:
                 s += '{}\n'.format(key.upper())
                 for k in d[key]:
-                    if type(d[key][k]) in [dict, int, str, bool, list]:
-                        s += '{}\t{}\n'.format(k, d[key][k])
-                    else:
-                        print('Didnt include {} bc its type {}'.format(k, type(d[key][k])))
-            elif type(d[key]) in [int, str, bool, list]:
-                s += '{}\t{}\n'.format(key, d[key])
+                    s += '{}\t{}\n'.format(k, d[key][k])
             else:
-                print('Didnt include {} bc its type {}'.format(key, type(d[key])))
+                s += '{}\t{}\n'.format(key, d[key])
         name = self.name.replace(' ','_').lower()
         with open(name + '.tsv', 'w') as f:
             f.write(s)
@@ -204,14 +201,16 @@ def read_tsv(filename):
         else:
             sub_d = i.lower()
             d[sub_d] = {}
-    print(d)
     return Character(d['player_name'], d['name'], d=d)
 
 
 def main():
     '''For testing purposes'''
-    viola = load_from_db('viola')
-    viola.make_tsv2()
+    rhea = load_from_db('rhea')
+    rhea.p()
+    rhea.make_tsv()
+    rhea.read_tsv('rhea_galena.tsv')
+    rhea.p()
 
 
 if __name__ == '__main__':
