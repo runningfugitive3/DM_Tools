@@ -202,7 +202,7 @@ def read_tsv(filename):
             if ':' in i or '[' in i:
                 d[sub_d][i.split('\t')[0]] = ast.literal_eval(i.split('\t')[1])
             elif '\t' not in i:
-                d[sub_d][i] = ''
+                d[sub_d][i] = None
             else:
                 d[sub_d][i.split('\t')[0]] = i.split('\t')[1]
         else:
