@@ -9,14 +9,14 @@ hp	1
 hp_max	1
 initiative	0
 speed	30
-ABILITY	
-strength	
-dexterity	
-constitution	
-intelligence	
-wisdom	
-charisma	
-SKILL	
+ABILITY
+strength
+dexterity
+constitution
+intelligence
+wisdom
+charisma
+SKILL
 athletics	[0]
 acrobatics	[0]
 sleight_of_hand	[0]
@@ -35,7 +35,7 @@ deception	[0]
 intimidation	[0]
 performance	[0]
 persuasion	[0]
-BODY	
+BODY
 race	Gerblin
 age	40
 height	3ft 2in
@@ -44,21 +44,21 @@ eyes	black
 skin	scaly
 hair	greasy
 appearance	Gerblin-y
-PERSON	
-backstory	
-background	
+PERSON
+backstory
+background
 personality	Unfriendly
-features_traits	
+features_traits
 proficiencies	[]
 languages	['Common', 'Gerblin']
-ideals	
-bonds	
-flaws	
+ideals
+bonds
+flaws
 alignment	Evil
-faction	
+faction
 allies_organizations	Gerblin mafia
-INVENTORY	
+INVENTORY
 coin	{'cp': 0, 'sp': 0, 'ep': 0, 'gp': 0, 'pp': 0}
 weapon	{'Hurty Stick': 'A stick for hurting'}
 armor	{'rags': 'Minor protection from natural elements'}
-other	{'nose ring': 'It's a Gerblin trend'}
+other	{'nose ring': 'It\'s a Gerblin trend'}

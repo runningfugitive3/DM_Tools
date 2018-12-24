@@ -193,11 +193,16 @@ def read_tsv(filename):
     sub_d = None
     for item in l:
         i = item.replace('\n','')
-        if '\t' in i and not sub_d:
+        print(i)
+        #looks for labels like BODY INVENTORY
+        if not i.strip().isupper() and not sub_d:
             d[i.split('\t')[0]] = i.split('\t')[1]
-        elif '\t' in i and sub_d:
+        elif not i.strip().isupper() and sub_d:
+            #to see if theres a list or dict we want to make
             if ':' in i or '[' in i:
                 d[sub_d][i.split('\t')[0]] = ast.literal_eval(i.split('\t')[1])
+            elif '\t' not in i:
+                d[sub_d][i] = ''
             else:
                 d[sub_d][i.split('\t')[0]] = i.split('\t')[1]
         else:
